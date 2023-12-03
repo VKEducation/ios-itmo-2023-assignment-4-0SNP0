@@ -30,4 +30,16 @@ extension ThreadSafeArray {
     func append(_ newElement: Element) {
         lock.writeAction { array.append(newElement) }
     }
+    
+    func insert(_ newElement: Element, at index: Index) {
+        lock.writeAction { array.insert(newElement, at: index) }
+    }
+    
+    func remove(at index: Index) -> Element {
+        return lock.writeAction { array.remove(at: index) }
+    }
+    
+    func removeAll(keepingCapacity keepCapacity: Bool = false) {
+        lock.writeAction { array.removeAll(keepingCapacity: keepCapacity) }
+    }
 }
